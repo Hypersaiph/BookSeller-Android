@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#1976D2</color>
+    <color name="colorAccent">#4CAF50</color>
+
+    <color name="primaryText">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="white">#ffffff</color>
+    <color name="colorFollowing">#525252</color>
+    <color name="colorFollowingDark">#333333</color>
+    <color name="colorLink">#0044cc</color>
+
+    <color name="wrong">#FF4000</color>
+    <color name="okay">#088A08</color>
+    <color name="amber">#FFC107</color>
+</resources>

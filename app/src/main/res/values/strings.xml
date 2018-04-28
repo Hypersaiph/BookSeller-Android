@@ -1,0 +1,87 @@
+<resources>
+    <string name="app_name">BookSeller</string>
+
+    <string name="title_sales">Ventas</string>
+    <string name="title_products">Productos</string>
+    <string name="title_customers">Clientes</string>
+    <string name="title_notifications">Notificaciones</string>
+    <string name="title_profile">Perfíl</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_bottom_navigation_menu">BottomNavigationMenu</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_maps">Map</string>
+
+
+    <string name="card_product_authors">Autor(es);</string>
+    <string name="card_product_genres">Género(s):</string>
+    <string name="card_product_publishers">Editor(es):</string>
+    <string name="card_product_types">Disponible en:</string>
+
+
+    <string name="gps_network_not_enabled">El GPS está desactivado</string>
+    <string name="open_location_settings">Activar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="update">Actualizar</string>
+    <string name="add">Agregar</string>
+    <string name="store">Guardar</string>
+    <string name="remove">Eliminar</string>
+    <string name="title_activity_basic">BasicActivity</string>
+
+
+    <string name="sale_details">Detalle:</string>
+    <string name="next_payment">Siguiente cuota:</string>
+    <string name="open">ABRIR</string>
+    <string name="select">SELECCIONAR</string>
+    <string name="register_payment">Registrar Pago</string>
+    <string name="wrong">#FF4000</string>
+    <string name="okay">#298A08</string>
+    <string name="product_type_1">Tapa Dura</string>
+    <string name="product_type_2">Tapa Suave</string>
+    <string name="product_type_3">Audiolibro</string>
+
+    <string name="options">Opciones</string>
+    <string name="sale_create">Crear Venta</string>
+    <string name="sale_add_product">Agregar Producto</string>
+    <string name="form_sale_months">Número de Cuotas</string>
+    <string name="form_sale_anual_interest">Interés Anual (%)</string>
+    <string name="sale_total">Total: 0.0 Bs</string>
+    <string name="form_sale_date">Fecha inical de cobro</string>
+    <string name="form_sale_new_date">Nueva fecha de cobro</string>
+    <string name="form_sale_type">Tipo de Venta:</string>
+    <string name="form_book_type">Tipo de Libro:</string>
+    <string name="form_sale_products">Productos</string>
+    <string name="form_sale_product">Título</string>
+    <string name="form_sale_customer">NIT</string>
+    <string name="form_sale_type_1">Venta al Contado</string>
+    <string name="form_sale_type_2">Venta a Crédito</string>
+    <string name="form_sale_quantity">Cantidad</string>
+    <string name="form_sale_selling_price">Precio de Venta</string>
+    <string name="form_sale_bar_scanner">Búsqueda por Código de Barras</string>
+
+
+    <string name="account_canceled">Cancelado</string>
+    <string name="account_wait">Sin Cancelar</string>
+    <string name="account_penalty">En Mora</string>
+
+    <string name="form_customer_name">Nombre</string>
+    <string name="form_customer_surname">Apellido</string>
+    <string name="form_customer_nit">NIT</string>
+    <string name="form_customer_email">Email</string>
+    <string name="form_customer_address">Dirección</string>
+    <string name="form_customer_phone">Teléfono</string>
+    <string name="form_customer_note">Nota</string>
+</resources>
