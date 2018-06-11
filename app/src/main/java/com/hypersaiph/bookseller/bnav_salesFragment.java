@@ -159,23 +159,21 @@ public class bnav_salesFragment extends Fragment implements ResponseInterface {
 
                     JSONObject bookMap = new JSONObject(typeJO.get("book").toString());
                     JSONObject bookJO = new JSONObject(bookMap.get("data").toString());
-                    Book book = new Book(
-                            bookJO.getString("title"),
-                            Integer.parseInt(bookJO.getString("book_id"))
-                    );
                     //type
                     BookType bookType = new BookType(
                             typeJO.getString("type"),
                             Integer.parseInt(typeJO.getString("book_type_id")),
                             typeJO.getString("isbn10"),
                             typeJO.getString("isbn13"),
-                            typeJO.getString("serial_cd")
+                            typeJO.getString("serial_cd"),
+                            //book object
+                            bookJO.getString("title"),
+                            Integer.parseInt(bookJO.getString("book_id"))
                     );
                     outflows.add(new Outflow(
                             Integer.parseInt(outflowsMap.get("quantity")),
                             Double.parseDouble(outflowsMap.get("selling_price")),
-                            bookType,
-                            book
+                            bookType
                     ));
                 }
                 SaleType saleType = new SaleType(

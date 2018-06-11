@@ -2,7 +2,7 @@ package com.hypersaiph.bookseller.Models;
 
 import java.util.ArrayList;
 
-public class BookType {
+public class BookType extends Book{
     private String type;
     private int type_id;
     private Double price;
@@ -16,9 +16,10 @@ public class BookType {
     private Double height;
     private Double depth;
     private ArrayList<String> publishers;
-    private Book book;
 
     public BookType(String type, int type_id, Double price, int pages, String isbn10, String isbn13, String serial_cd, String duration, Double weight, Double width, Double height, Double depth, ArrayList<String> publishers) {
+        //list of books
+        super();
         this.type = type;
         this.type_id = type_id;
         this.price = price;
@@ -34,7 +35,9 @@ public class BookType {
         this.publishers = publishers;
     }
 
-    public BookType(String type, int type_id, String isbn10, String isbn13, String serial_cd) {
+    public BookType(String type, int type_id, String isbn10, String isbn13, String serial_cd, String title, int book_id) {
+        //list of sales
+        super(title, book_id);
         this.type = type;
         this.type_id = type_id;
         this.isbn10 = isbn10;
@@ -42,27 +45,22 @@ public class BookType {
         this.serial_cd = serial_cd;
     }
 
-    public BookType(String type, int type_id, Double price, String isbn10, String isbn13, String serial_cd, Book book) {
+    public BookType(String type, int type_id, Double price, String isbn10, String isbn13, String serial_cd, String title, int book_id, String language) {
+        //search books
+        super(title, book_id, language);
         this.type = type;
         this.type_id = type_id;
         this.price = price;
         this.isbn10 = isbn10;
         this.isbn13 = isbn13;
         this.serial_cd = serial_cd;
-        this.book = book;
-    }
-
-    public Book getBook() {
-        return book;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
     }
 
     public BookType(int type_id) {
+        super();
         this.type_id = type_id;
     }
+
 
     public String getType() {
         return type;

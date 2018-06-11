@@ -52,7 +52,6 @@ public class CreateSaleActivity extends AppCompatActivity implements ResponseInt
     public static Customer customer;
     public static boolean hasBeenPayed;
     public static boolean hasBeenReScheduled;
-
     private LayoutInflater layoutInflater;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -70,6 +69,7 @@ public class CreateSaleActivity extends AppCompatActivity implements ResponseInt
     private FloatingActionButton add_product, create_sale, watch_accounts;
     private Button select_date;
     private String access_token, initial_date;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -397,15 +397,16 @@ public class CreateSaleActivity extends AppCompatActivity implements ResponseInt
         for(int i=0; i<cart.size();i++){
             total += (cart.get(i).getQuantity()*cart.get(i).getSelling_price());
         }
-        total_sale.setText("Total: "+total+" Bs.");
+        total_sale.setText(total+" Bs");
     }
     private void outflowDialog(final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(CreateSaleActivity.this);
-        if(cart.get(position).getBookType().getBook() == null){
+        /*if(cart.get(position).getBookType().getTitle() == null){
             builder.setTitle(cart.get(position).getBook().getTitle());
         }else{
             builder.setTitle(cart.get(position).getBookType().getBook().getTitle());
-        }
+        }*/
+        builder.setTitle(cart.get(position).getBookType().getTitle());
         View view= layoutInflater.inflate(R.layout.form_sale_product, null);
         builder.setView(view);
         form_book_type= (TextView) view.findViewById(R.id.form_book_type);
@@ -490,11 +491,11 @@ public class CreateSaleActivity extends AppCompatActivity implements ResponseInt
         // Replace the contents of a view (invoked by the layout manager)
         @Override
         public void onBindViewHolder(@NonNull final ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
-            holder.title.setText(outflows.get(position).getBook().getTitle());
+            holder.title.setText(outflows.get(position).getBookType().getTitle());
             holder.type.setText(outflows.get(position).getBookType().getType());
             holder.quantity.setText("Cantidad: "+outflows.get(position).getQuantity());
             holder.selling_price.setText(outflows.get(position).getSelling_price()+" Bs.");
-            if(bnav_salesFragment.Sales.get(sale_position).hasAtLeastOnePaymentCompleted()){
+            if(sale_position != -1 && bnav_salesFragment.Sales.get(sale_position).hasAtLeastOnePaymentCompleted()){
                 holder.edit.setVisibility(View.GONE);
                 holder.delete.setVisibility(View.GONE);
             }

@@ -4,13 +4,11 @@ public class Outflow {
     private int quantity;
     private Double selling_price;
     private BookType bookType;
-    private Book book;
 
-    public Outflow(int quantity, Double selling_price, BookType bookType, Book book) {
+    public Outflow(int quantity, Double selling_price, BookType bookType) {
         this.quantity = quantity;
         this.selling_price = selling_price;
         this.bookType = bookType;
-        this.book = book;
     }
 
     public int getQuantity() {
@@ -35,13 +33,5 @@ public class Outflow {
 
     public void setBookType(BookType bookType) {
         this.bookType = bookType;
-    }
-
-    public Book getBook() {
-        return book;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
     }
 }

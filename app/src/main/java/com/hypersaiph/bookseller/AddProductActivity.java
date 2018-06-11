@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
@@ -24,6 +25,9 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.hypersaiph.bookseller.HttpClient.HttpTask;
 import com.hypersaiph.bookseller.HttpClient.ResponseInterface;
 import com.hypersaiph.bookseller.Models.Book;
@@ -52,6 +56,20 @@ public class AddProductActivity extends AppCompatActivity implements ResponseInt
     private LayoutInflater layoutInflater;
     private int book_type;
     private String book_title, book_serial, access_token;
+    // Get the results:
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if(result != null) {
+            if(result.getContents() == null) {
+                //Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
+            } else {
+                searchBooks(book_type, book_title, result.getContents());
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,7 +123,9 @@ public class AddProductActivity extends AppCompatActivity implements ResponseInt
             @Override
             public void onClick(View v) {
                 //activate zxing
-                searchBooks(book_type, book_title, "1925483592");
+
+                new IntentIntegrator(AddProductActivity.this).initiateScan();
+                //searchBooks(book_type, book_title, "1925483592");
             }
         });
         product_name.addTextChangedListener(new TextWatcher() {
@@ -163,19 +183,18 @@ public class AddProductActivity extends AppCompatActivity implements ResponseInt
                 //get book
                 JSONObject bookMap = new JSONObject(map.get("book"));
                 JSONObject bookJO = new JSONObject(bookMap.get("data").toString());
-                book = new Book(
-                        bookJO.get("title").toString(),
-                        Integer.parseInt(bookJO.get("book_id").toString()),
-                        bookJO.get("language").toString()
-                );
+
                 BookTypes.add(new BookType(
                         map.get("type"),
-                        Integer.parseInt(map.get("type_id")),
+                        Integer.parseInt(map.get("book_type_id")),
                         Double.parseDouble(map.get("price")),
                         map.get("isbn10"),
                         map.get("isbn13"),
                         map.get("serial_cd"),
-                        book
+                        //book object
+                        bookJO.get("title").toString(),
+                        Integer.parseInt(bookJO.get("book_id").toString()),
+                        bookJO.get("language").toString()
                 ));
             }
         } catch (JSONException e) {
@@ -184,8 +203,9 @@ public class AddProductActivity extends AppCompatActivity implements ResponseInt
         }
     }
     private void statusDialog(final BookType bookType) {
+        //Toast.makeText(this, bookType.getType_id()+"", Toast.LENGTH_SHORT).show();
         AlertDialog.Builder builder = new AlertDialog.Builder(AddProductActivity.this);
-        builder.setTitle(bookType.getBook().getTitle());
+        builder.setTitle(bookType.getTitle());
         View view= layoutInflater.inflate(R.layout.form_sale_product, null);
         builder.setView(view);
         form_book_type= (TextView) view.findViewById(R.id.form_book_type);
@@ -206,8 +226,7 @@ public class AddProductActivity extends AppCompatActivity implements ResponseInt
                         Outflow outflow = new Outflow(
                                 Integer.parseInt(quantity.getText().toString()),
                                 Double.parseDouble(selling_price.getText().toString()),
-                                bookType,
-                                bookType.getBook()
+                                bookType
                         );
                         CreateSaleActivity.cart.add(outflow);
                         finish();
@@ -271,10 +290,10 @@ public class AddProductActivity extends AppCompatActivity implements ResponseInt
         // Replace the contents of a view (invoked by the layout manager)
         @Override
         public void onBindViewHolder(@NonNull final ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
-            holder.title.setText(bookTypes.get(position).getBook().getTitle());
+            holder.title.setText(bookTypes.get(position).getTitle());
             holder.type.setText(bookTypes.get(position).getType());
             //quantity
-            holder.language.setText(bookTypes.get(position).getBook().getLanguage());
+            holder.language.setText(bookTypes.get(position).getLanguage());
             //quantity
             holder.price.setText(bookTypes.get(position).getPrice().toString()+" Bs.");
             holder.price.setTextColor(getResources().getColor(R.color.okay));

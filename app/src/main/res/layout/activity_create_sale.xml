@@ -145,7 +145,13 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/sale_total_title"
+                        android:textColor="@color/primaryText"/>
                     <TextView
                         android:id="@+id/sale_total"
                         android:layout_width="wrap_content"

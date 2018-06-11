@@ -1,7 +1,11 @@
 package com.hypersaiph.bookseller;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,10 +17,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 import com.hypersaiph.bookseller.HttpClient.HttpTask;
 import com.hypersaiph.bookseller.HttpClient.ResponseInterface;
 import com.hypersaiph.bookseller.Models.Book;
@@ -40,6 +50,8 @@ public class bnav_productsFragment extends Fragment implements ResponseInterface
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<Book> Books = new ArrayList<>();
+    private LayoutInflater layoutInflater;
+    ShareDialog shareDialog;
 
     public bnav_productsFragment() {
         // Required empty public constructor
@@ -54,6 +66,10 @@ public class bnav_productsFragment extends Fragment implements ResponseInterface
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        FacebookSdk.sdkInitialize(getActivity());
+        AppEventsLogger.activateApp(getActivity());
+        shareDialog = new ShareDialog(this);
+        layoutInflater = getLayoutInflater();
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -214,7 +230,8 @@ public class bnav_productsFragment extends Fragment implements ResponseInterface
             holder.share_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context, ""+books.get(position).getBook_id(), Toast.LENGTH_SHORT).show();
+                    shareSocialDialog(books.get(position));
+                    //Toast.makeText(context, ""+books.get(position).getBook_id(), Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -223,6 +240,38 @@ public class bnav_productsFragment extends Fragment implements ResponseInterface
         public int getItemCount() {
             return books.size();
         }
+    }
+    private void shareSocialDialog(final Book book) {
+        //Toast.makeText(this, bookType.getType_id()+"", Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(book.getTitle());
+        View view= layoutInflater.inflate(R.layout.form_share_social, null);
+        builder.setView(view);
+        ImageButton facebook = (ImageButton) view.findViewById(R.id.facebook);
+        ImageButton whatsapp = (ImageButton) view.findViewById(R.id.whatsapp);
+        final AlertDialog ad = builder.show();
+        final String link = book.getTitle()+". "+Globals.API_BASE_URL+"/book/"+book.getBook_id();
+        facebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.dismiss();
+                ShareLinkContent content = new ShareLinkContent.Builder()
+                        .setContentUrl(Uri.parse(link))
+                        .build();
+                shareDialog.show(content);
+            }
+        });
+        whatsapp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ad.dismiss();
+                final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+                emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Visita esta página.");
+                emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Visita esa página para saber más sobre el libro: "+link);
+                emailIntent.setType("text/plain");
+                startActivity(Intent.createChooser(emailIntent, "Send to friend"));
+            }
+        });
     }
     //limit string
     public String limit(String string, int length){

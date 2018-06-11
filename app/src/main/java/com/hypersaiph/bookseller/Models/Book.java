@@ -1,7 +1,5 @@
 package com.hypersaiph.bookseller.Models;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 
 public class Book {
@@ -27,78 +25,61 @@ public class Book {
         this.genres = genres;
         this.types = types;
     }
-
     public Book(String title, int book_id) {
         this.title = title;
         this.book_id = book_id;
     }
-
     public Book(String title, int book_id, String language) {
         this.title = title;
         this.book_id = book_id;
         this.Language = language;
     }
-
+    Book(){}
     public String getLanguage() {
         return Language;
     }
-
     public void setLanguage(String language) {
         Language = language;
     }
-
     public String getTitle() {
         return title;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
-
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }
-
     public int getBook_id() {
         return book_id;
     }
-
     public void setBook_id(int book_id) {
         this.book_id = book_id;
     }
-
     public int getEdition() {
         return edition;
     }
-
     public void setEdition(int edition) {
         this.edition = edition;
     }
-
     public String getPublication_date() {
         return publication_date;
     }
-
     public void setPublication_date(String publication_date) {
         this.publication_date = publication_date;
     }
-
     public String getCover_image() {
         return cover_image;
     }
-
     public void setCover_image(String cover_image) {
         this.cover_image = cover_image;
     }
-
     public ArrayList<String> getAuthors() {
         return authors;
     }
-
     public void setAuthors(ArrayList<String> authors) {
         this.authors = authors;
     }
