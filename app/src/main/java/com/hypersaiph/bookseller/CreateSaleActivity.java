@@ -113,7 +113,8 @@ public class CreateSaleActivity extends AppCompatActivity implements ResponseInt
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Bundle b = getIntent().getExtras();
-        if(b != null){
+        Log.e("bundle", b.toString());
+        if(b.getString("code") != null){
             sale_position = b.getInt("position");
             String code = b.getString("code");
             getSupportActionBar().setTitle("Venta: "+code);

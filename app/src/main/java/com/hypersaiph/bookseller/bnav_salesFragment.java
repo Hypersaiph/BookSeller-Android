@@ -68,6 +68,7 @@ public class bnav_salesFragment extends Fragment implements ResponseInterface {
         createSale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Toast.makeText(getActivity(), "click", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(getActivity(), CreateSaleActivity.class);
                 startActivity(i);
             }
