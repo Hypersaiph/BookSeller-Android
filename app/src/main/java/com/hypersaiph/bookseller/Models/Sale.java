@@ -1,5 +1,6 @@
 package com.hypersaiph.bookseller.Models;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Sale {
@@ -127,7 +128,11 @@ public class Sale {
         for(int i=0;i<this.getAccounts().size();i++){
             total += (this.getAccounts().get(i).getAmount() + this.getAccounts().get(i).getPenalty());
         }
-        return total;
+        return Double.parseDouble(RoundValue(total));
+    }
+    private String RoundValue(Double number) {
+        DecimalFormat df = new DecimalFormat("#.##");
+        return df.format(number);
     }
     public boolean hasInterest(){
         for(int i=0;i<this.getAccounts().size();i++){

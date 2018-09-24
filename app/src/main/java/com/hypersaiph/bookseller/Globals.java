@@ -5,7 +5,7 @@ public class Globals {
     //home
     //private final static String HOST = "192.168.1.2:8000";
     //private net
-    private final static String HOST = "192.168.43.101:8000";
+    private final static String HOST = "192.168.1.10:8000";
     //workshop
     //private final static String HOST = "192.168.99.131:8000";
     //production

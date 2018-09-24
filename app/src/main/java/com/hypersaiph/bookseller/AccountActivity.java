@@ -29,6 +29,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -200,7 +201,8 @@ public class AccountActivity extends AppCompatActivity implements ResponseInterf
         public void onBindViewHolder(@NonNull final ViewHolder holder, @SuppressLint("RecyclerView") final int position) {
             holder.code.setText(accounts.get(position).getCode());
             holder.payment_date.setText(accounts.get(position).getPayment_date());
-            holder.total.setText((accounts.get(position).getAmount()+accounts.get(position).getPenalty())+" Bs.");
+            holder.total.setText(
+                    RoundValue(accounts.get(position).getAmount()+accounts.get(position).getPenalty()) +" Bs.");
             if(accounts.get(position).isIs_active()){
                 if(schedule){
                     holder.payment.setVisibility(View.VISIBLE);
@@ -257,6 +259,10 @@ public class AccountActivity extends AppCompatActivity implements ResponseInterf
                     paymentDialog(position);
                 }
             });
+        }
+        private String RoundValue(Double number) {
+            DecimalFormat df = new DecimalFormat("#.##");
+            return df.format(number);
         }
         // Return the size of your dataset (invoked by the layout manager)
         @Override
